@@ -10,7 +10,7 @@ interface GridContainerProps {
 
 export const GridContainer: React.FC<GridContainerProps> = ({ rows, cols }) => {
   const colLabels = [
-    "", // Aligning with extra low labels
+    "", // Aligning withd extra low labels
     "Extraordinarily positive",
     "Substantially Good",
     "Ambiguous",

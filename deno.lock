@@ -21,6 +21,7 @@
     "jsr:@std/path@1": "1.0.8",
     "jsr:@std/testing@*": "1.0.5",
     "npm:@deno/vite-plugin@1": "1.0.0_vite@5.4.11__@types+node@22.5.4_@types+node@22.5.4",
+    "npm:@piwikpro/react-piwik-pro@^2.2.1": "2.2.1_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@tailwindcss/vite@latest": "4.0.1_vite@5.4.11__@types+node@22.5.4_@types+node@22.5.4_lightningcss@1.29.1",
     "npm:@types/node@*": "22.5.4",
     "npm:@types/react@^18.3.12": "18.3.12",
@@ -353,6 +354,17 @@
         "@jridgewell/resolve-uri",
         "@jridgewell/sourcemap-codec"
       ]
+    },
+    "@piwikpro/react-piwik-pro@2.2.1_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-JWawU/sKs//n/oD5PeUV0a3eYradH5xWo1i2mD0lZ7plOVKvs523tICcojRY5CmaZf1O3cc9RfGYexF1djuq/g==",
+      "dependencies": [
+        "@piwikpro/tracking-base-library",
+        "react",
+        "react-dom"
+      ]
+    },
+    "@piwikpro/tracking-base-library@1.3.0": {
+      "integrity": "sha512-aFmqKletJSMHJRvWfVGk4+MeNi9OpC/riUhKW/wem+6yOThdcsFGNM8LuUS145ZrhXRMQqBgWjUa+BDc1Zy6GA=="
     },
     "@rollup/rollup-android-arm-eabi@4.27.3": {
       "integrity": "sha512-EzxVSkIvCFxUd4Mgm4xR9YXrcp976qVaHnqom/Tgm+vU79k4vV4eYTjmRvGfeoW8m9LVcsAy/lGjcgVegKEhLQ=="
@@ -863,6 +875,7 @@
       "jsr:@std/assert@1",
       "jsr:@std/dotenv@0.225.3",
       "npm:@deno/vite-plugin@1",
+      "npm:@piwikpro/react-piwik-pro@^2.2.1",
       "npm:@tailwindcss/vite@latest",
       "npm:@types/react@^18.3.12",
       "npm:@vitejs/plugin-react@^4.3.3",

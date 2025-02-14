@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Icon } from "./Icon.tsx";
 
 interface ScoringGridProps {
   rows: number;
@@ -10,6 +11,33 @@ export function ScoringGrid({ rows, cols }: ScoringGridProps) {
   const [grid, setGrid] = useState(initialGrid);
   const [bankStars, setBankStars] = useState(101);
   const [dragOverCell, setDragOverCell] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const scores = params.get('scores');
+    if (scores) {
+      try {
+        const decodedGrid = scores.split(',')
+          .map(row => row.split('').map(Number));
+        if (decodedGrid.length === rows && decodedGrid[0].length === cols) {
+          setGrid(decodedGrid);
+          const usedStars = decodedGrid.flat().reduce((a, b) => a + b, 0);
+          setBankStars(101 - usedStars);
+        }
+      } catch (e) {
+        console.error('Failed to parse scores from URL');
+      }
+    }
+  }, [rows, cols]);
+
+  const handleShare = () => {
+    const scoreString = grid.map(row => row.join('')).join(',');
+    const url = new URL(window.location.href);
+    url.searchParams.set('scores', scoreString);
+    navigator.clipboard.writeText(url.toString())
+      .then(() => alert('Share link copied to clipboard!'))
+      .catch(() => alert('Failed to copy share link'));
+  };
 
   const handleGridDragStart = (e: React.DragEvent, row: number, col: number) => {
     if (grid[row][col] > 0) {
@@ -77,8 +105,12 @@ export function ScoringGrid({ rows, cols }: ScoringGridProps) {
     e.preventDefault();
   };
 
-  const renderStars = (count: number) => "⭐".repeat(count);
-
+  const renderIcons = (count: number) => (
+    Array(count).fill(null).map((_, i) => (
+      <Icon key={i} />
+    ))
+  );
+  
   return (
     <div className="scoring-grid-container">
       <table className="grid-table">
@@ -88,17 +120,21 @@ export function ScoringGrid({ rows, cols }: ScoringGridProps) {
               {row.map((count, colIndex) => {
                 const cellKey = `${rowIndex}-${colIndex}`;
                 return (
-                  <td 
+                  <td
                     key={cellKey}
-                    className={`cell ${dragOverCell === cellKey ? "drag-over" : ""}`}
+                    className={`cell ${
+                      dragOverCell === cellKey ? "drag-over" : ""
+                    }`}
                     draggable={count > 0}
-                    onDragStart={(e) => handleGridDragStart(e, rowIndex, colIndex)}
+                    onDragStart={e =>
+                      handleGridDragStart(e, rowIndex, colIndex)
+                    }
                     onDragOver={handleGridDragOver}
-                    onDrop={(e) => handleGridDrop(e, rowIndex, colIndex)}
+                    onDrop={e => handleGridDrop(e, rowIndex, colIndex)}
                     onDragEnter={() => handleGridDragEnter(rowIndex, colIndex)}
                     onDragLeave={handleGridDragLeave}
                   >
-                    {renderStars(count)}
+                    {renderIcons(count)}
                   </td>
                 );
               })}
@@ -118,10 +154,13 @@ export function ScoringGrid({ rows, cols }: ScoringGridProps) {
             draggable
             onDragStart={handleBankDragStart}
           >
-            ⭐
+            <Icon />
           </div>
         ))}
       </div>
+      <button className="share-button" onClick={handleShare}>
+        Share Scoring
+      </button>
     </div>
   );
 }

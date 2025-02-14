@@ -156,3 +156,29 @@
   border-radius: 4px;
   background-color: #fff;
 }
+
+.icon {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0 2px;
+}
+
+.score-icon .icon {
+  font-size: 1.2rem;
+}
+
+.share-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.share-button:hover {
+  background-color: #45a049;
+}
