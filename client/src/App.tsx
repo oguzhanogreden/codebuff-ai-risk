@@ -2,31 +2,27 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  // Create a 5x4 grid data structure
+  const initialGrid = Array(4).fill(null).map(() => Array(5).fill(null));
+  const [grid] = useState(initialGrid);
+      
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src="/react.svg" className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count: number) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="container">
+      <table className="grid-table">
+        <tbody>
+          {grid.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((_, colIndex) => (
+                <td key={`${rowIndex}-${colIndex}`}>
+                  {/* Cell content will go here later */}
+                  {`${rowIndex},${colIndex}`}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
